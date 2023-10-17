@@ -5,12 +5,21 @@ import java.util.Arrays;
 public class StringUtils {
     public static void main(String[] args) {
         StringUtils stringUtils = new StringUtils();
-        Arrays.stream(args)
-                .forEach(arg ->
-                        System.out.printf("%s - %s\n", arg, stringUtils.isPositiveNumber(arg)));
+
+        try {
+            Arrays.stream(args)
+                    .forEach(arg ->
+                            System.out.printf("%s - %s\n", arg, stringUtils.isPositiveNumber(arg)));
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
     }
 
     public boolean isPositiveNumber(String str) {
-        return Integer.parseInt(str) > 0;
+        try {
+            return Integer.parseInt(str) > 0;
+        } catch (NumberFormatException e) {
+            throw new NumberFormatException();
+        }
     }
 }
