@@ -1,0 +1,30 @@
+plugins {
+    id 'java'
+    id 'jacoco'
+}
+
+group = 'com.task'
+version = '2.0.0'
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    externalLibs
+}
+
+dependencies {
+
+    implementation project(path: ':')
+//    implementation files('libs/myUtils-1.0.0.jar')
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+test.finalizedBy jacocoTestReport
+jacocoTestReport.dependsOn test
