@@ -7,6 +7,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 class StringUtilsTest {
@@ -28,5 +29,11 @@ class StringUtilsTest {
     @ValueSource(strings = {"-1", "-100", "-14", "-65"})
     void isPositiveNumberFalse(String str) {
         assertFalse(stringUtils.isPositiveNumber(str));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"w", "ab"})
+    void isPositiveNumberThrow(String str) {
+        assertThrows(NumberFormatException.class, () -> stringUtils.isPositiveNumber(str));
     }
 }

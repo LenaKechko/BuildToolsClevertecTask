@@ -6,7 +6,11 @@ public class Utils {
     static public boolean isAllPositiveNumbers(String... numbers) {
         StringUtils stringUtils = new StringUtils();
         for (String number : numbers) {
-            if (!stringUtils.isPositiveNumber(number)) return false;
+            try {
+                if (!stringUtils.isPositiveNumber(number)) return false;
+            } catch (NumberFormatException e) {
+                throw new NumberFormatException();
+            }
         }
         return true;
     }
