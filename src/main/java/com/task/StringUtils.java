@@ -10,7 +10,7 @@ public class StringUtils {
                         System.out.printf("%s - %s\n", arg, stringUtils.isPositiveNumber(arg)));
     }
 
-    boolean isPositiveNumber(String str) {
+    public boolean isPositiveNumber(String str) {
         return Integer.parseInt(str) > 0;
     }
 }

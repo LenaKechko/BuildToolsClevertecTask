@@ -1,4 +1,6 @@
-package com.task;
+package com.util;
+
+import com.task.StringUtils;
 
 public class Utils {
     static public boolean isAllPositiveNumbers(String... numbers) {
