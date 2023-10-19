@@ -1,21 +1,12 @@
 plugins {
     id 'java'
     id 'jacoco'
-    id 'maven-publish'
 }
 
-apply plugin: CustomPlugin
+apply plugin: com.plugin.CustomPlugin
 
 sourceCompatibility = 17
 targetCompatibility = 17
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-        }
-    }
-}
 
 jar {
     manifest {
@@ -33,38 +24,18 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
 }
 
+jacoco {
+    toolVersion = "0.8.9"
+    layout.buildDirectory.dir("/reports/jacoco")
+}
+
+
 test {
     useJUnitPlatform()
 }
 
 test.finalizedBy jacocoTestReport
-jacocoTestReport.dependsOn test
 
-
-class CustomPlugin implements Plugin<Project> {
-
-    @Override
-    void apply(Project project) {
-        def map = [description: "Task for report", group: "kechko", type: DefaultTask]
-        project.task(map, "myTask") {
-            println("Hello myTask");
-//            println(project.subprojects.isEmpty());
-
-            additionalSourceDirs = files(project.subprojects.sourceSets.main.allSource.srcDirs)
-            classDirectories = files(project.subprojects.sourceSets.main.output)
-            dependsOn = project.subprojects.test
-            executionData = files(project.subprojects.jacocoTestReport.executionData)
-            sourceDirectories = files(project.subprojects.sourceSets.main.allSource.srcDirs)
-            onlyIf = {
-                true
-            }
-
-            doFirst {
-                executionData = files(executionData.findAll {
-                    it.exists()
-                })
-            }
-        }
-    }
+jacocoTestReport {
+    dependsOn test
 }
-
