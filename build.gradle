@@ -35,7 +35,16 @@ test {
 }
 
 test.finalizedBy jacocoTestReport
+jacocoTestReport.dependsOn test
 
-jacocoTestReport {
-    dependsOn test
+jacocoTestReport.finalizedBy copy_reports
+copy_reports.dependsOn jacocoTestReport
+
+tasks.register("copy_build", Copy) {
+    dependsOn jar
+    from 'build/libs'
+    into "${rootDir}/lib"
 }
+
+jar.finalizedBy copy_build
+

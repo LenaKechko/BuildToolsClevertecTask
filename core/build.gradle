@@ -15,9 +15,8 @@ configurations {
 }
 
 dependencies {
-
-    implementation project(path: ':')
-//    implementation files('libs/myUtils-1.0.0.jar')
+    implementation files("${rootDir}/lib/myUtils-1.0.0.jar")
+//        implementation project(path: ':')
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
 }
