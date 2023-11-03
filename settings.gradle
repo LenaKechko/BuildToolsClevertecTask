@@ -6,3 +6,6 @@
  */
 
 rootProject.name = 'BuildToolsTask'
+include 'core'
+include 'api'
+
